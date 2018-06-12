@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_ffffff"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_333333">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="720px"
+            android:layout_marginRight="80px"
+            android:layout_marginLeft="80px"
+            android:layout_marginTop="100px"
+            android:layout_marginBottom="100px"
+            android:layout_gravity="center">
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/listview_timelist"
+                android:divider="@color/color_ffffff"
+                android:dividerHeight="4px"/>
+
+            <ImageView
+                android:layout_width="400px"
+                android:layout_height="400px"
+                android:background="@drawable/ready"
+                android:layout_gravity="center"
+                android:visibility="invisible"
+                android:id="@+id/ready_iv"/>
+
+            <ImageView
+                android:layout_width="400px"
+                android:layout_height="400px"
+                android:background="@drawable/gun"
+                android:visibility="invisible"
+                android:layout_gravity="center"
+                android:id="@+id/gun_iv"/>
+
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="400px"
+        android:layout_gravity="center"
+        android:layout_marginTop="80px"
+        android:gravity="center">
+
+
+        <FrameLayout
+            android:layout_width="400px"
+            android:layout_height="400px">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="400px"
+                android:layout_height="400px"
+                app:lottie_fileName="watch.json"
+                app:lottie_loop="true"
+                app:lottie_autoPlay="true"
+                android:id="@+id/watch_loti"
+                android:visibility="invisible"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/linear_frame"
+                android:orientation="vertical"
+                android:background="@color/color_ffffff" />
+
+        </FrameLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4px"
+        android:background="@color/color_333333"
+        android:layout_marginTop="80px"
+        android:layout_marginLeft="80px"
+        android:layout_marginRight="80px"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0:00:000"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:textColor="#333333"
+        android:layout_marginTop="80px"
+        android:id="@+id/time_tv"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4px"
+        android:background="@color/color_333333"
+        android:layout_marginTop="80px"
+        android:layout_marginLeft="80px"
+        android:layout_marginRight="80px"/>
+
+    <!--<Chronometer-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--android:id="@+id/chronometer"-->
+        <!--android:textStyle="bold"-->
+        <!--android:textSize="30dp"-->
+        <!--android:textColor="#333333"/>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="80px"
+        android:layout_marginBottom="40px">
+
+        <Button
+            android:layout_width="240px"
+            android:layout_height="240px"
+            android:background="@drawable/play_btn"
+            android:id="@+id/play_btn"/>
+
+        <Button
+            android:layout_width="240px"
+            android:layout_height="240px"
+            android:background="@drawable/pause_btn"
+            android:id="@+id/pause_btn"
+            android:layout_marginRight="40px"
+            android:layout_marginLeft="40px"/>
+
+        <Button
+            android:layout_width="240px"
+            android:layout_height="240px"
+            android:background="@drawable/stop_btn"
+            android:id="@+id/stop_btn"/>
+
+    </LinearLayout>
+</LinearLayout>
