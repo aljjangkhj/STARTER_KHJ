@@ -2,6 +2,7 @@ package com.timer.hyunjae.starttimer.ui;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.timer.hyunjae.starttimer.R;
@@ -29,7 +32,7 @@ import java.util.TimerTask;
 
 public class MainActivity extends BaseActivity {
 
-    private Button play_Btn, pause_Btn, stop_Btn;
+    private Button play_Btn, pause_Btn, stop_Btn, scubtn;
     private long startTime, timeMS, timeSB, update;
     private TextView tv;
     private long backKeyPressedTime = 0;
@@ -53,7 +56,7 @@ public class MainActivity extends BaseActivity {
             listViewAdapter.notifyDataSetChanged();
         }
     };
-
+    private BillingManager billingManager;
 
 
     @Override
@@ -65,6 +68,7 @@ public class MainActivity extends BaseActivity {
         play_Btn = (Button)findViewById(R.id.play_btn);
         pause_Btn = (Button)findViewById(R.id.pause_btn);
         stop_Btn = (Button)findViewById(R.id.stop_btn);
+        scubtn = (Button)findViewById(R.id.scubtn);
         tv = (TextView)findViewById(R.id.time_tv);
         lottieAnimationView = (LottieAnimationView)findViewById(R.id.watch_loti);
         ready_Img = (ImageView)findViewById(R.id.ready_iv);
@@ -76,6 +80,27 @@ public class MainActivity extends BaseActivity {
 
         listView = (ListView)findViewById(R.id.listview_timelist);
         listView.setAdapter(listViewAdapter);
+
+        billingManager = new BillingManager(this).init(new BillingManager.BillingCallback() {
+            @Override
+            public void onPurchased(String productId) {
+                if (productId.equals("Config.SUBSCRIBE_SKU")) {
+                    Toast.makeText(mContext, "구독 해 주셔서 감사합니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mContext, "구매 해 주셔서 감사합니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onUpdatePrice(Pair<Double, Double> prices) {
+                try {
+                    Toast.makeText(mContext, "1"+prices.first.intValue(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "2"+prices.second.intValue(), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         sp = new SoundPool(1, AudioManager.STREAM_ALARM, 0);
         play_Btn.setOnClickListener(new View.OnClickListener() {
@@ -199,6 +224,13 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
+
+        scubtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                billingManager.subscribe();
+            }
+        });
     }
 
     @Override
@@ -241,4 +273,23 @@ public class MainActivity extends BaseActivity {
             h.postDelayed(this, 0);
         }
     };
+
+    @Override
+    public void onResume() {
+        billingManager.onResume();
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        billingManager.onDestroy();
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (!billingManager.handleActivityResult(requestCode, resultCode, data)) {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 }

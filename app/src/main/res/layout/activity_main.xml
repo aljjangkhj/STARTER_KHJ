@@ -96,6 +96,12 @@
         android:layout_marginTop="80px"
         android:id="@+id/time_tv"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scubtn"
+        android:text="구독버튼"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="4px"
